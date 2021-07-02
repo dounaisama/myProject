@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // console.log(1);
+        // setTimeout(() => {
+        //     console.log(2);
+        // });
+        // var p = new Promise((res, rej) => {
+        //     console.log(3);
+        //     res(4)
+        // })
+        // p.then((rs) => {
+        //     console.log(rs);
+        // })
+        // console.log(5);//结果1 3 5 4 2
+
+        // var name = 'the Window'
+        // var obj = {
+        //     name: 'My obj',
+        //     getNameFunc: function () {
+        //         return () => {
+        //             //对象方法内指向对象,
+        //             //对象方法内嵌套方法:(普通)指向Window (箭头函数):指向此对象
+        //             return function () {
+        //                 return () => {
+        //                     return this.name
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+        // console.log(obj.getNameFunc()()()());// the Window
+
+        // var name = "window"
+        // function a() {
+        //     return () => {
+        //         return () => {
+        //             console.log(this);
+        //         }
+        //     }
+        // }
+        // a()()() //window
+
+        let object = { a: 0 };
+        function fun(obj) {
+            obj.a = 20;
+            obj = { a: 2 };
+            obj.b = 2;
+
+            // console.log(obj);
+        }
+        fun(object);
+        console.log(object); //{a:20}
+    </script>
+</body>
+
+</html>

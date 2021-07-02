@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="./js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			li{
+				list-style: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<span v-if="flag">这是true</span>
+			<span v-else>这是false</span>
+		</div>
+		<div id="div">
+			<ul>
+				<li v-for="item in items">{{item.msg}}</li>
+			</ul>
+		</div>
+		<script>
+			new Vue({
+				el:"#app",
+				data:{
+					flag:false
+				},
+			})
+			new Vue({
+				el:"#div",
+				data:{
+				  items:[
+					  {msg:'你好'},
+					  {msg:'lllll'}
+				  ]	
+				}
+			})
+		</script>
+	</body>
+</html>

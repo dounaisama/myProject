@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <jerry></jerry>
+        <tom></tom>
+    </div>
+    <script>
+        var hub = new Vue();
+        Vue.component('jerry', {
+            data() {
+                return {
+                    msg: "jerry的数据",
+                }
+            },
+            methods: {
+                fn() {
+                    hub.$emit('tom-fn', 200)
+                },
+            },
+            template: `<div><button @click='fn'>jerry传数据</button></div>`,
+        });
+
+
+        Vue.component('tom', {
+            data() {
+                return {
+                    msg: "",
+                }
+            },
+            mounted() {
+                hub.$on("tom-fn", (v) => {
+                    this.msg = v;
+                })
+            },
+            template: `<div>{{msg}}</div>`,
+        });
+
+        var app = new Vue({
+            el: '#app',
+        });
+    </script>
+</body>
+
+</html>

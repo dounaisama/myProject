@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <timeid></timeid>
+    </div>
+    <script>
+        const vm=new Vue({
+            el:'#app',
+            data:{
+            },
+            components:{
+                'timeid':{
+                    data(){
+                        return{
+                            num:0,
+                            btn:'开始',
+                            flag:true,
+                            timerID:''
+                        }
+                    },
+                template:`<div>
+                 {{num}}</br>
+                <button @click='starInterval' v-text='btn'></button>
+                <button @click='reSet'>重置</button>
+                </div>`,
+                methods:{
+                starInterval(){
+                    if(this.flag==true){
+                        this.timerID=setInterval(() => {
+                        this.num++
+                    },1000);
+                        this.btn='停止'
+                        this.flag=false
+                    }else{
+                        clearInterval(this.timerID)
+                        this.btn='开始'
+                        this.flag=true
+                        setInterval(this.timerID,1000)
+                    }
+                },
+                reSet(){
+                clearInterval(this.timerID)
+                this.num=0
+                this.flag=true
+                this.btn='开始'
+                }
+            }
+            
+        }
+    },
+            
+        })
+    </script>
+</body>
+</html>

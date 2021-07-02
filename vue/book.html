@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+		<script src="./js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.grid {
+				margin: auto;
+				width: 500px;
+				text-align: center;
+			}
+
+			.grid table {
+				width: 100%;
+				border-collapse: collapse;
+			}
+
+			.grid th,
+			td {
+				padding: 10;
+				border: 1px dashed orange;
+				height: 35px;
+				line-height: 35px;
+			}
+
+			.grid th {
+				background-color: orange;
+			}
+
+			input {
+				width: 100px;
+			}
+
+			.book {
+				margin-bottom: 20px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+			<div class="grid">
+				<div>
+					<h1>图书管理系统</h1>
+					<div class="book">
+						<div>
+							<label for="id">
+								编号：
+							</label>
+							<!-- 3.1、通过双向绑定获取到输入框中的输入的 id  -->
+							<input type="text" id="id" v-model="editId" disabled="false">
+							<label for="name">
+								名称：
+							</label>
+							<!-- 3.2、通过双向绑定获取到输入框中的输入的 name  -->
+							<input type="text" id="name" v-model="name">
+							<!-- 3.3、给按钮添加点击事件  -->
+							<button @click="addbook">{{proName}}</button>
+							<!-- <button @click="Edit">修改</button> -->
+						</div>
+					</div>
+					<div class="total"><span>图书总数:{{total}}</span></div>
+					<table>
+						<thead>
+							<tr>
+								<th>编号</th>
+								<th>名称</th>
+								<th>时间</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-for="item in books" :key="item.id">
+								<td>{{item.id}}</td>
+								<td>{{item.name}}</td>
+								<td>{{item.date|format}}</td>
+								<td>
+									<a href="" @click.prevent="change(item.id)">修改</a>
+									<span>|</span>
+									<a href="" @click.prevent="delet(item.id)">删除</a>
+								</td>
+							</tr>
+							<!-- <tr>
+								<td>1</td>
+								<td>三国演义</td>
+								<td>2020-01-02</td>
+								<td>
+									<a href="">修改</a>
+									<span>|</span>
+									<a href="">删除</a>
+								</td>
+							</tr> -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<script>
+			Vue.filter("format", function(date) {
+				var date = new Date();
+				var y = date.getFullYear();
+				var m = date.getMonth() + 1;
+				var d = date.getDate();
+				return y + '-' + m + '-' + d;
+			})
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					id: 4,
+					name: "",
+					editId:"",
+					proName:"添加",
+					books: [{
+						id: 1,
+						name: '三国演义',
+						date: ''
+					}, {
+						id: 2,
+						name: '水浒传',
+						date: ''
+					}, {
+						id: 3,
+						name: '红楼梦',
+						date: ''
+					}, {
+						id: 4,
+						name: '西游记',
+						date: ''
+					}]
+				},
+				methods: {
+					addbook: function() {
+						if(this.proName==="添加"){
+							var id=this.id+1;
+						var book = {};
+						book.id = id;
+						book.name = this.name;
+						book.date = this.date;
+						this.books.push(book);
+						this.id = ++this.id;
+						this.name = '';
+						}else{
+							var id=this.editId;
+							var date=this.date;
+							var name=this.name;
+							//找到id相同的下标(索引)
+							var i=this.books.findIndex(v=>v.id===id);
+							this.books[i].id = id;
+							this.books[i].name = this.name;
+							this.editId = '';
+							this.name = '';
+							this.proName="添加";
+						}
+						// document.getElementById('id').removeAttribute('disabled');
+					},
+					change: function(id) {
+						this.proName="修改";
+						var book = this.books.filter(function(item) {
+							return item.id == id;
+						});
+						this.editId = book[0].id;
+						this.name = book[0].name;
+					},
+					delet: function(id) {
+						//删除id=id的索引下的对象
+						var index = this.books.findIndex((v,i)=>{
+							return v.id == id;
+						});
+						this.books.splice(index, 1);
+						//方法2:筛选id=id之外的对象,再打印
+						// var newArr=this.books.filter((v,i)=>{
+						// 	console.log(v.id);
+						// 	return v.id!=id
+						// })
+						// this.books=newArr;
+				  }
+				},
+				computed:{
+					  total(){
+						  //计算图书总量
+						  return this.books.length;
+					  }
+				  }
+			})
+		</script>
+	</body>
+
+</html>

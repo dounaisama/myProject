@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <cart></cart>
+    </div>
+    <script>
+        //创建组件模板
+        //标题组件
+        let heading = {
+                props: ['uname'],
+                template: `
+            <div class=title>{{uname}}的商品</div>
+            `
+            }
+            //商品列表
+        let goodslist = {
+            //....列表的html代码
+        }
+        let total = {
+            props: ["list"],
+            template: `
+            <div class="total">
+            <span>{{total}}</span>
+            <button>结算</button>
+            </div>
+            `,
+            computed: {
+                total() {
+                    var t = 0;
+                    this.list.forEach(function(v) {
+
+                    });
+                    // return 200;
+                },
+            },
+        }
+
+        //创建组件
+        Vue.component('cart', {
+            data() {
+                return {
+                    uname: "王五",
+                }
+            },
+            template: `<div class="container">
+            <heading :uname="uname"></heading>
+            <goodslist></goodslist>
+            <total :list="list"></total>
+            </div>`,
+            //局部组件
+            //把模板组件放入局部组件中
+            components: {
+                heading,
+                goodslist,
+                total
+            }
+        })
+        let vm = new Vue({
+            el: "#app",
+
+        });
+    </script>
+</body>
+
+</html>

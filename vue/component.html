@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<script src="./js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<title></title>
+</head>
+<body>
+	<div id="app"> 
+		<hello></hello>
+		<User-Name></User-Name>
+	</div>
+	<div id="div1">
+		<hello1></hello1>
+	</div>
+	<script type="text/javascript">
+		
+		Vue.component('UserName',{
+			data:function(){
+				return{
+					msg:"你好",
+					sum:0
+				}
+			},
+			methods:{
+				fn(){
+					this.sum++
+				}
+			},
+			template:"<span><button @click='fn'>按钮</button>{{sum}}</span>"
+		})
+		
+		Vue.component('hello',{
+			data(){
+				return{
+				}
+			},
+			template:`<h1>组件</h1>`,
+		})
+		
+		new Vue({
+			el:"#app"
+		})
+		new Vue({
+			el:"#div1",
+			components:{
+				'hello1':{
+					template:'<div>组件使用</div>'
+				}
+				
+			}
+		})
+	</script>
+</body>
+</html>

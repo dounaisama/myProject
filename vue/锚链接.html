@@ -1,0 +1,34 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+</head>
+
+<body>
+    <div id="top" class="append_box mb20">
+        平滑跳转到底部：<a href="#bottom" class="smooth">滑到底部</a>
+    </div>
+    <div id="appendBox" class="append_box">
+        <img width="950" height="931"
+            src="http://www.68ecshop.com/images/upload/Image/201407210943470ffuoj.jpg" /><br />
+        <img width="950" height="1000" src="http://www.68ecshop.com/images/upload/Image/20140721094432t9j0kt.jpg" />
+    </div>
+    <div id="bottom" class="append_box mb20">
+        平滑回到顶部：<a href="#top" class="smooth">回到顶部链接</a>
+    </div>
+
+    <script src="http://vscss.com/dm/jquery.js"></script>
+    <script>
+        $(".smooth").click(function () {
+            var href = $(this).attr("href");
+            var pos = $(href).offset().top;
+            $("html,body").animate({ scrollTop: pos }, 1000);
+            return false;
+        });
+    </script>
+</body>
+
+</html>

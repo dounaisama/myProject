@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <nihao :test='content'></nihao>
+    </div>
+    <script>
+        Vue.component('nihao', {
+            props: ['test'],
+            data() {
+                return {
+                    msg: '子组件本身的数据',
+                };
+            },
+            template: '<div>{{test}}</div>'
+        })
+        new Vue({
+            el: "#app",
+            data: {
+                content: '父组件的值'
+            }
+        })
+    </script>
+</body>
+
+</html>
